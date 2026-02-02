@@ -1,19 +1,16 @@
 ﻿'use client';
 
-import Image from 'next/image';
+import DarkVeil from './ui/DarkVeil';
+import Noise from './ui/Noise';
+import TextType from './ui/TextType';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-32 pb-20 px-4 min-h-screen flex items-center">
-      {/* Imagem de fundo */}
+    <section id="home" className="relative pt-32 pb-20 px-4 min-h-screen flex items-center overflow-hidden">
+      {/* Dark Veil Background */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/kurupira-labs/images/capa-kurupira.webp"
-          alt="Kurupira Labs Background"
-          fill
-          className="object-cover"
-          priority
-        />
+        <DarkVeil primaryColor="#dc2626" secondaryColor="#000000" />
+        <Noise patternAlpha={15} />
         {/* Degradê preto na parte de baixo */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black" />
       </div>
@@ -25,7 +22,17 @@ export default function Hero() {
         </h1>
         
         <p className="text-xl md:text-3xl text-gray-200 mb-10 max-w-3xl mx-auto font-semibold tracking-wide">
-          DESENVOLVEMOS APLICATIVOS MOBILE QUE TRANSFORMAM IDEIAS EM SOLUÇÕES PRÁTICAS E INTELIGENTES
+          <TextType 
+            text={[
+              "DESENVOLVEMOS APLICATIVOS MOBILE",
+              "TRANSFORMAMOS IDEIAS EM SOLUÇÕES",
+              "INOVAÇÃO E TECNOLOGIA"
+            ]}
+            typingSpeed={80}
+            deletingSpeed={50}
+            pauseDuration={2000}
+            className="inline-block"
+          />
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

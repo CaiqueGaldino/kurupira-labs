@@ -1,13 +1,15 @@
 import { TrendingUp, Target, PieChart } from 'lucide-react';
 import Image from 'next/image';
+import AppStoreButton from './ui/AppStoreButton';
+import ScrollFloat from './ui/ScrollFloat';
 
 export default function Projects() {
   return (
     <section id="projects" className="py-20 px-8 bg-black min-h-screen flex flex-col justify-center">
       <div className="w-full">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 text-white tracking-wider">
+        <ScrollFloat className="text-4xl md:text-6xl font-bold text-center mb-4 text-white tracking-wider">
           NOSSOS PROJETOS
-        </h2>
+        </ScrollFloat>
         <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto text-lg">
           Conheça as soluções que desenvolvemos para tornar a vida dos usuários mais simples e organizada
         </p>
@@ -111,6 +113,18 @@ export default function Projects() {
                   Planeje o futuro com base nos seus hábitos
                 </p>
               </div>
+            </div>
+
+            {/* Botões de Download */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <AppStoreButton 
+                variant="google" 
+                href="https://play.google.com/store" 
+              />
+              <AppStoreButton 
+                variant="apple" 
+                href="https://apps.apple.com" 
+              />
             </div>
           </div>
         </div>
