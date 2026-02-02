@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Imagem de fundo */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/capa-kurupira.webp"
+          src="/kurupira-labs/images/capa-kurupira.webp"
           alt="Kurupira Labs Background"
           fill
           className="object-cover"
