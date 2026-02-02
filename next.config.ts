@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '',
+  basePath: '/kurupira-labs',
+  assetPrefix: '/kurupira-labs',
   trailingSlash: true,
 };
 

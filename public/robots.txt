@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://[seu-dominio].github.io/sitemap.xml
+Sitemap: https://caiquegaldino.github.io/kurupira-labs/sitemap.xml
