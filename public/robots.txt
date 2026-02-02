@@ -1,0 +1,5 @@
+# Adicione este arquivo na raiz do seu site quando fizer deploy
+User-agent: *
+Allow: /
+
+Sitemap: https://[seu-dominio].github.io/sitemap.xml

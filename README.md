@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kurupira Labs
 
-## Getting Started
+Site institucional da Kurupira Labs, desenvolvedora de aplicativos mobile.
 
-First, run the development server:
+## 🚀 Projetos
+
+- **Farol Capital** - Aplicativo de gestão financeira pessoal 100% offline
+
+## 🌐 Páginas Disponíveis
+
+- `/` - Página inicial
+- `/farolcapitalapp-ads` - Informações do app-ads.txt para Google AdMob
+- `/politicasdeprivacidadesfarolcapital` - Política de privacidade do Farol Capital
+
+## 🛠️ Tecnologias
+
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS
+- Lucide React (ícones)
+- Barlow Condensed (fonte)
+
+## 💻 Desenvolvimento Local
 
 ```bash
+# Instalar dependências
+npm install
+
+# Executar servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Abrir no navegador
+http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Build para Produção
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Gerar build estático
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# A pasta 'out' será criada com os arquivos estáticos
+```
 
-## Learn More
+## 🚀 Deploy no GitHub Pages
 
-To learn more about Next.js, take a look at the following resources:
+Este projeto está configurado para deploy automático no GitHub Pages.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Passo a passo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Configure o repositório no GitHub**
+2. **Ative o GitHub Pages**:
+   - Vá em Settings > Pages
+   - Em "Source", selecione "GitHub Actions"
+3. **Faça push para a branch main**:
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+4. **O workflow executará automaticamente**
+5. **Seu site estará disponível em**: `https://[seu-usuario].github.io/[nome-do-repo]`
 
-## Deploy on Vercel
+Para mais detalhes, consulte o arquivo [DEPLOY.md](DEPLOY.md)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 App-Ads.txt
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O arquivo `app-ads.txt` está disponível em:
+- `/public/app-ads.txt` (download direto)
+- `/farolcapitalapp-ads` (página com instruções)
+
+**Importante**: Substitua `pub-0000000000000000` pelo seu Publisher ID real do Google AdMob.
+
+## 🎨 Cores do Site
+
+- **Primárias**: Preto e Vermelho
+- **Farol Capital**: Preto e Verde
+
+## 📄 Licença
+
+© 2025 Kurupira Labs. Todos os direitos reservados.

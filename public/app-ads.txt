@@ -1,0 +1,8 @@
+# app-ads.txt for Farol Capital
+# Generated for Google AdMob integration
+# Last updated: February 2, 2026
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Replace pub-0000000000000000 with your actual AdMob Publisher ID
+# You can find your Publisher ID in your AdMob account settings
