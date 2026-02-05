@@ -1,131 +1,681 @@
-import { TrendingUp, Target, PieChart } from 'lucide-react';
+'use client';
+
+import { Wallet, DollarSign, BarChart3, PieChart, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
+import { useEffect, useState, useRef } from 'react';
 import AppStoreButton from './ui/AppStoreButton';
 import ScrollFloat from './ui/ScrollFloat';
+import { useRef as useGsapRef, useEffect as useGsapEffect, useCallback } from 'react';
+import { gsap } from 'gsap';
+import '../components/MagicBento.css';
+
+const DEFAULT_PARTICLE_COUNT = 12;
+const DEFAULT_SPOTLIGHT_RADIUS = 300;
+const DEFAULT_GLOW_COLOR = '34, 197, 94'; // green-500
+const MOBILE_BREAKPOINT = 768;
+
+const createParticleElement = (x: number, y: number, color = DEFAULT_GLOW_COLOR) => {
+  const el = document.createElement('div');
+  el.className = 'particle';
+  el.style.cssText = `
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(${color}, 1);
+    box-shadow: 0 0 6px rgba(${color}, 0.6);
+    pointer-events: none;
+    z-index: 100;
+    left: ${x}px;
+    top: ${y}px;
+  `;
+  return el;
+};
+
+const calculateSpotlightValues = (radius: number) => ({
+  proximity: radius * 0.5,
+  fadeDistance: radius * 0.75
+});
+
+const updateCardGlowProperties = (card: HTMLElement, mouseX: number, mouseY: number, glow: number, radius: number) => {
+  const rect = card.getBoundingClientRect();
+  const relativeX = ((mouseX - rect.left) / rect.width) * 100;
+  const relativeY = ((mouseY - rect.top) / rect.height) * 100;
+
+  card.style.setProperty('--glow-x', `${relativeX}%`);
+  card.style.setProperty('--glow-y', `${relativeY}%`);
+  card.style.setProperty('--glow-intensity', glow.toString());
+  card.style.setProperty('--glow-radius', `${radius}px`);
+};
+
+interface ParticleCardProps {
+  children: React.ReactNode;
+  className?: string;
+  disableAnimations?: boolean;
+  style?: React.CSSProperties;
+  particleCount?: number;
+  glowColor?: string;
+  enableTilt?: boolean;
+  clickEffect?: boolean;
+  enableMagnetism?: boolean;
+}
+
+const ParticleCard = ({
+  children,
+  className = '',
+  disableAnimations = false,
+  style,
+  particleCount = DEFAULT_PARTICLE_COUNT,
+  glowColor = DEFAULT_GLOW_COLOR,
+  enableTilt = true,
+  clickEffect = false,
+  enableMagnetism = false
+}: ParticleCardProps) => {
+  const cardRef = useGsapRef<HTMLDivElement>(null);
+  const particlesRef = useGsapRef<HTMLDivElement[]>([]);
+  const timeoutsRef = useGsapRef<NodeJS.Timeout[]>([]);
+  const isHoveredRef = useGsapRef(false);
+  const memoizedParticles = useGsapRef<HTMLDivElement[]>([]);
+  const particlesInitialized = useGsapRef(false);
+  const magnetismAnimationRef = useGsapRef<gsap.core.Tween | null>(null);
+
+  const initializeParticles = useCallback(() => {
+    if (particlesInitialized.current || !cardRef.current) return;
+
+    const { width, height } = cardRef.current.getBoundingClientRect();
+    memoizedParticles.current = Array.from({ length: particleCount }, () =>
+      createParticleElement(Math.random() * width, Math.random() * height, glowColor)
+    );
+    particlesInitialized.current = true;
+  }, [particleCount, glowColor]);
+
+  const clearAllParticles = useCallback(() => {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+    magnetismAnimationRef.current?.kill();
+
+    particlesRef.current.forEach(particle => {
+      gsap.to(particle, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'back.in(1.7)',
+        onComplete: () => {
+          particle.parentNode?.removeChild(particle);
+        }
+      });
+    });
+    particlesRef.current = [];
+  }, []);
+
+  const animateParticles = useCallback(() => {
+    if (!cardRef.current || !isHoveredRef.current) return;
+
+    if (!particlesInitialized.current) {
+      initializeParticles();
+    }
+
+    memoizedParticles.current.forEach((particle, index) => {
+      const timeoutId = setTimeout(() => {
+        if (!isHoveredRef.current || !cardRef.current) return;
+
+        const clone = particle.cloneNode(true) as HTMLDivElement;
+        cardRef.current.appendChild(clone);
+        particlesRef.current.push(clone);
+
+        gsap.fromTo(clone, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
+
+        gsap.to(clone, {
+          x: (Math.random() - 0.5) * 100,
+          y: (Math.random() - 0.5) * 100,
+          rotation: Math.random() * 360,
+          duration: 2 + Math.random() * 2,
+          ease: 'none',
+          repeat: -1,
+          yoyo: true
+        });
+
+        gsap.to(clone, {
+          opacity: 0.3,
+          duration: 1.5,
+          ease: 'power2.inOut',
+          repeat: -1,
+          yoyo: true
+        });
+      }, index * 100);
+
+      timeoutsRef.current.push(timeoutId);
+    });
+  }, [initializeParticles]);
+
+  useGsapEffect(() => {
+    if (disableAnimations || !cardRef.current) return;
+
+    const element = cardRef.current;
+
+    const handleMouseEnter = () => {
+      isHoveredRef.current = true;
+      animateParticles();
+
+      if (enableTilt) {
+        gsap.to(element, {
+          rotateX: 5,
+          rotateY: 5,
+          duration: 0.3,
+          ease: 'power2.out',
+          transformPerspective: 1000
+        });
+      }
+    };
+
+    const handleMouseLeave = () => {
+      isHoveredRef.current = false;
+      clearAllParticles();
+
+      if (enableTilt) {
+        gsap.to(element, {
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+
+      if (enableMagnetism) {
+        gsap.to(element, {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!enableTilt && !enableMagnetism) return;
+
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      if (enableTilt) {
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        gsap.to(element, {
+          rotateX,
+          rotateY,
+          duration: 0.1,
+          ease: 'power2.out',
+          transformPerspective: 1000
+        });
+      }
+
+      if (enableMagnetism) {
+        const magnetX = (x - centerX) * 0.05;
+        const magnetY = (y - centerY) * 0.05;
+
+        magnetismAnimationRef.current = gsap.to(element, {
+          x: magnetX,
+          y: magnetY,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      if (!clickEffect) return;
+
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const maxDistance = Math.max(
+        Math.hypot(x, y),
+        Math.hypot(x - rect.width, y),
+        Math.hypot(x, y - rect.height),
+        Math.hypot(x - rect.width, y - rect.height)
+      );
+
+      const ripple = document.createElement('div');
+      ripple.style.cssText = `
+        position: absolute;
+        width: ${maxDistance * 2}px;
+        height: ${maxDistance * 2}px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(${glowColor}, 0.4) 0%, rgba(${glowColor}, 0.2) 30%, transparent 70%);
+        left: ${x - maxDistance}px;
+        top: ${y - maxDistance}px;
+        pointer-events: none;
+        z-index: 1000;
+      `;
+
+      element.appendChild(ripple);
+
+      gsap.fromTo(
+        ripple,
+        {
+          scale: 0,
+          opacity: 1
+        },
+        {
+          scale: 1,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          onComplete: () => ripple.remove()
+        }
+      );
+    };
+
+    element.addEventListener('mouseenter', handleMouseEnter);
+    element.addEventListener('mouseleave', handleMouseLeave);
+    element.addEventListener('mousemove', handleMouseMove);
+    element.addEventListener('click', handleClick);
+
+    return () => {
+      isHoveredRef.current = false;
+      element.removeEventListener('mouseenter', handleMouseEnter);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener('mousemove', handleMouseMove);
+      element.removeEventListener('click', handleClick);
+      clearAllParticles();
+    };
+  }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor]);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`${className} particle-container`}
+      style={{ ...style, position: 'relative', overflow: 'hidden' }}
+    >
+      {children}
+    </div>
+  );
+};
+
+interface GlobalSpotlightProps {
+  gridRef: React.RefObject<HTMLDivElement | null>;
+  disableAnimations?: boolean;
+  enabled?: boolean;
+  spotlightRadius?: number;
+  glowColor?: string;
+}
+
+const GlobalSpotlight = ({
+  gridRef,
+  disableAnimations = false,
+  enabled = true,
+  spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
+  glowColor = DEFAULT_GLOW_COLOR
+}: GlobalSpotlightProps) => {
+  const spotlightRef = useGsapRef<HTMLDivElement | null>(null);
+  const isInsideSection = useGsapRef(false);
+
+  useGsapEffect(() => {
+    if (disableAnimations || !gridRef?.current || !enabled) return;
+
+    const spotlight = document.createElement('div');
+    spotlight.className = 'global-spotlight';
+    spotlight.style.cssText = `
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle,
+        rgba(${glowColor}, 0.15) 0%,
+        rgba(${glowColor}, 0.08) 15%,
+        rgba(${glowColor}, 0.04) 25%,
+        rgba(${glowColor}, 0.02) 40%,
+        rgba(${glowColor}, 0.01) 65%,
+        transparent 70%
+      );
+      z-index: 200;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+    `;
+    document.body.appendChild(spotlight);
+    spotlightRef.current = spotlight;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!spotlightRef.current || !gridRef.current) return;
+
+      const section = gridRef.current.closest('.bento-section');
+      const rect = section?.getBoundingClientRect();
+      const mouseInside =
+        rect && e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+
+      isInsideSection.current = mouseInside || false;
+      const cards = gridRef.current.querySelectorAll('.magic-bento-card');
+
+      if (!mouseInside) {
+        gsap.to(spotlightRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        cards.forEach(card => {
+          (card as HTMLElement).style.setProperty('--glow-intensity', '0');
+        });
+        return;
+      }
+
+      const { proximity, fadeDistance } = calculateSpotlightValues(spotlightRadius);
+      let minDistance = Infinity;
+
+      cards.forEach(card => {
+        const cardElement = card as HTMLElement;
+        const cardRect = cardElement.getBoundingClientRect();
+        const centerX = cardRect.left + cardRect.width / 2;
+        const centerY = cardRect.top + cardRect.height / 2;
+        const distance =
+          Math.hypot(e.clientX - centerX, e.clientY - centerY) - Math.max(cardRect.width, cardRect.height) / 2;
+        const effectiveDistance = Math.max(0, distance);
+
+        minDistance = Math.min(minDistance, effectiveDistance);
+
+        let glowIntensity = 0;
+        if (effectiveDistance <= proximity) {
+          glowIntensity = 1;
+        } else if (effectiveDistance <= fadeDistance) {
+          glowIntensity = (fadeDistance - effectiveDistance) / (fadeDistance - proximity);
+        }
+
+        updateCardGlowProperties(cardElement, e.clientX, e.clientY, glowIntensity, spotlightRadius);
+      });
+
+      gsap.to(spotlightRef.current, {
+        left: e.clientX,
+        top: e.clientY,
+        duration: 0.1,
+        ease: 'power2.out'
+      });
+
+      const targetOpacity =
+        minDistance <= proximity
+          ? 0.8
+          : minDistance <= fadeDistance
+            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
+            : 0;
+
+      gsap.to(spotlightRef.current, {
+        opacity: targetOpacity,
+        duration: targetOpacity > 0 ? 0.2 : 0.5,
+        ease: 'power2.out'
+      });
+    };
+
+    const handleMouseLeave = () => {
+      isInsideSection.current = false;
+      gridRef.current?.querySelectorAll('.magic-bento-card').forEach(card => {
+        (card as HTMLElement).style.setProperty('--glow-intensity', '0');
+      });
+      if (spotlightRef.current) {
+        gsap.to(spotlightRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      spotlightRef.current?.parentNode?.removeChild(spotlightRef.current);
+    };
+  }, [gridRef, disableAnimations, enabled, spotlightRadius, glowColor]);
+
+  return null;
+};
+
+const useMobileDetection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
 
 export default function Projects() {
+  const [activeIconIndex, setActiveIconIndex] = useState(0);
+  const [leftImageIndex, setLeftImageIndex] = useState(0);
+  const [rightImageIndex, setRightImageIndex] = useState(1);
+  const [isLeftTransitioning, setIsLeftTransitioning] = useState(false);
+  const [isRightTransitioning, setIsRightTransitioning] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobileDetection();
+
+  const icons = [
+    { Icon: DollarSign },
+    { Icon: Wallet },
+    { Icon: BarChart3 },
+    { Icon: PieChart },
+    { Icon: TrendingUp },
+  ];
+
+  const phoneImages = [
+    '/images/tela-farol-capital-1.jpeg',
+    '/images/tela-farol-capital-2.jpeg',
+    '/images/tela-farol-capital-3.jpeg',
+    '/images/tela-farol-capital-4.jpeg',
+    '/images/tela-farol-capital-5.jpeg',
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIconIndex((prev) => (prev + 1) % icons.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Frame esquerdo muda a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsLeftTransitioning(true);
+      setTimeout(() => {
+        setLeftImageIndex((prev) => (prev + 2) % phoneImages.length);
+        setTimeout(() => {
+          setIsLeftTransitioning(false);
+        }, 50);
+      }, 350);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Frame direito muda 2.5 segundos depois do esquerdo
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        setIsRightTransitioning(true);
+        setTimeout(() => {
+          setRightImageIndex((prev) => (prev + 2) % phoneImages.length);
+          setTimeout(() => {
+            setIsRightTransitioning(false);
+          }, 50);
+        }, 350);
+      }, 5000);
+      return () => clearInterval(interval);
+    }, 2500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const CurrentIcon = icons[activeIconIndex].Icon;
+  const leftImage = phoneImages[leftImageIndex];
+  const rightImage = phoneImages[rightImageIndex];
+
   return (
-    <section id="projects" className="py-20 px-8 bg-black min-h-screen flex flex-col justify-center">
-      <div className="w-full">
+    <section id="projects" className="py-20 px-4 md:px-8 bg-black min-h-screen flex flex-col justify-center bento-section">
+      <GlobalSpotlight
+        gridRef={gridRef}
+        disableAnimations={isMobile}
+        enabled={true}
+        spotlightRadius={DEFAULT_SPOTLIGHT_RADIUS}
+        glowColor={DEFAULT_GLOW_COLOR}
+      />
+      
+      <div className="container mx-auto max-w-7xl">
         <ScrollFloat className="text-4xl md:text-6xl font-bold text-center mb-4 text-white tracking-wider">
           NOSSOS PROJETOS
         </ScrollFloat>
-        <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto text-lg">
-          Conheça as soluções que desenvolvemos para tornar a vida dos usuários mais simples e organizada
+        <p className="text-center text-gray-400 mb-16 max-w-3xl mx-auto text-lg">
+          Conheça os aplicativos que desenvolvemos para tornar a vida das pessoas mais simples e organizada
         </p>
 
-        <div className="w-full">
-          <div className="bg-black rounded-2xl p-8 md:p-12 border border-green-500/30 hover:border-green-500/50 transition-all">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="relative w-16 h-16">
-                <Image
-                  src="/kurupira-labs/images/icone-farol-capital.png"
-                  alt="Farol Capital"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+        {/* Bento Grid Layout com MagicBento */}
+        <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+          {/* Lado Esquerdo - 3 Cards */}
+          <div className="flex flex-col gap-6">
+            {/* Primeira linha: 2 quadrados lado a lado - pequenos */}
+            <div className="grid grid-cols-2 gap-6 h-fit">
+              {/* Card 1: Logo do App - Degradê Verde */}
+              <ParticleCard
+                className="magic-bento-card magic-bento-card--border-glow aspect-square rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative flex items-center justify-center w-full max-h-48"
+                style={{ 
+                  background: 'linear-gradient(135deg, #059669, #22c55e, #10b981)',
+                  '--glow-color': DEFAULT_GLOW_COLOR 
+                } as React.CSSProperties}
+                disableAnimations={isMobile}
+                particleCount={8}
+                glowColor={DEFAULT_GLOW_COLOR}
+                enableTilt={true}
+                clickEffect={true}
+                enableMagnetism={false}
+              >
+                <div className="absolute inset-0 bg-linear-to-tr from-green-700/30 to-transparent"></div>
+                <div className="relative w-32 h-32 z-10">
+                  <Image
+                    src="/images/icone-farol-capital-sem-fundo.webp"
+                    alt="Farol Capital"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </ParticleCard>
+
+              {/* Card 2: Ícones Animados */}
+              <ParticleCard
+                className="magic-bento-card magic-bento-card--border-glow aspect-square rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] relative overflow-hidden w-full max-h-48"
+                style={{ 
+                  background: 'linear-gradient(135deg, #059669, #22c55e, #10b981)',
+                  '--glow-color': DEFAULT_GLOW_COLOR 
+                } as React.CSSProperties}
+                disableAnimations={isMobile}
+                particleCount={8}
+                glowColor={DEFAULT_GLOW_COLOR}
+                enableTilt={true}
+                clickEffect={true}
+                enableMagnetism={false}
+              >
+                <div className="absolute inset-0 bg-linear-to-tr from-green-700/30 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <CurrentIcon className="w-20 h-20 text-white transition-all duration-500 relative z-10" strokeWidth={1.5} />
+                </div>
+              </ParticleCard>
+            </div>
+
+            {/* Card 3: Texto do App - cresce para preencher o resto */}
+            <ParticleCard
+              className="magic-bento-card magic-bento-card--border-glow bg-zinc-900 rounded-2xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.7)] flex flex-col justify-between flex-1 min-h-96"
+              style={{ '--glow-color': DEFAULT_GLOW_COLOR } as React.CSSProperties}
+              disableAnimations={isMobile}
+              particleCount={12}
+              glowColor={DEFAULT_GLOW_COLOR}
+              enableTilt={true}
+              clickEffect={true}
+              enableMagnetism={false}
+            >
               <div>
-                <h3 className="text-3xl font-bold text-white mb-2">Farol Capital</h3>
-                <p className="text-green-400 font-semibold">Controle Financeiro Pessoal</p>
-              </div>
-            </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-wide">Farol Capital</h3>
+                <p className="text-green-400 font-semibold text-lg mb-6">Controle Financeiro Pessoal</p>
+                
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  Este é o Farol Capital, criado para ajudar você a organizar suas finanças de maneira 
+                  prática e inteligente. Com ele, você pode registrar seus gastos e ganhos, acompanhar 
+                  o fluxo do seu dinheiro e ter uma visão clara da sua situação financeira.
+                </p>
 
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Este é o Farol Capital, criado para ajudar você a organizar suas finanças de maneira 
-              prática e inteligente. Com ele, você pode registrar seus gastos e ganhos, acompanhar 
-              o fluxo do seu dinheiro e ter uma visão clara da sua situação financeira. Tudo em um 
-              só lugar, fácil de usar e sempre acessível.
-            </p>
-
-            <p className="text-gray-300 mb-8 leading-relaxed">
-              Além de registrar e acompanhar suas movimentações, o app oferece projeções futuras 
-              com base nos seus hábitos financeiros. Assim, você consegue planejar melhor, definir 
-              metas e tomar decisões mais seguras para alcançar seus objetivos. É como ter um 
-              consultor financeiro no bolso, pronto para orientar você.
-            </p>
-
-            {/* Screenshots do app */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
-                <Image
-                  src="/kurupira-labs/images/tela-farol-capital-1.jpeg"
-                  alt="Tela 1 - Farol Capital"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
-                <Image
-                  src="/kurupira-labs/images/tela-farol-capital-2.jpeg"
-                  alt="Tela 2 - Farol Capital"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
-                <Image
-                  src="/kurupira-labs/images/tela-farol-capital-3.jpeg"
-                  alt="Tela 3 - Farol Capital"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
-                <Image
-                  src="/kurupira-labs/images/tela-farol-capital-4.jpeg"
-                  alt="Tela 4 - Farol Capital"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
-                <Image
-                  src="/kurupira-labs/images/tela-farol-capital-5.jpeg"
-                  alt="Tela 5 - Farol Capital"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-zinc-900 p-6 rounded-lg border border-green-500/30">
-                <TrendingUp className="w-8 h-8 text-green-400 mb-3" />
-                <h4 className="font-bold text-white mb-2 text-lg tracking-wide">ACOMPANHAMENTO</h4>
-                <p className="text-sm text-gray-400">
-                  Registre e monitore todas suas movimentações financeiras
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Além de registrar e acompanhar suas movimentações, o app oferece projeções futuras 
+                  com base nos seus hábitos financeiros. Assim, você consegue planejar melhor, definir 
+                  metas e tomar decisões mais seguras para alcançar seus objetivos.
                 </p>
               </div>
 
-              <div className="bg-zinc-900 p-6 rounded-lg border border-green-500/30">
-                <PieChart className="w-8 h-8 text-green-400 mb-3" />
-                <h4 className="font-bold text-white mb-2 text-lg tracking-wide">VISUALIZAÇÕES</h4>
-                <p className="text-sm text-gray-400">
-                  Tenha uma visão clara da sua situação financeira
-                </p>
+              {/* Botões de Download */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                <AppStoreButton 
+                  variant="google" 
+                  href="https://play.google.com/store" 
+                />
+                <AppStoreButton 
+                  variant="apple" 
+                  href="https://apps.apple.com" 
+                />
               </div>
+            </ParticleCard>
+          </div>
 
-              <div className="bg-zinc-900 p-6 rounded-lg border border-green-500/30">
-                <Target className="w-8 h-8 text-green-400 mb-3" />
-                <h4 className="font-bold text-white mb-2 text-lg tracking-wide">PROJEÇÕES</h4>
-                <p className="text-sm text-gray-400">
-                  Planeje o futuro com base nos seus hábitos
-                </p>
+          {/* Lado Direito - 2 Frames de Telefone */}
+          <div className="grid grid-cols-2 gap-6 items-center">
+            <ParticleCard
+              className="magic-bento-card magic-bento-card--border-glow relative aspect-[9/19.5] rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.8)] bg-black p-3 h-full"
+              style={{ '--glow-color': DEFAULT_GLOW_COLOR } as React.CSSProperties}
+              disableAnimations={isMobile}
+              particleCount={8}
+              glowColor={DEFAULT_GLOW_COLOR}
+              enableTilt={true}
+              clickEffect={true}
+              enableMagnetism={false}
+            >
+              <div className="relative w-full h-full rounded-[1.75rem] overflow-hidden">
+                <Image
+                  key={leftImage}
+                  src={leftImage}
+                  alt="Tela Farol Capital"
+                  fill
+                  className={`object-contain transition-opacity duration-700 ${isLeftTransitioning ? 'opacity-0' : 'opacity-100'}`}
+                  style={{ transitionTimingFunction: 'ease-in-out' }}
+                />
               </div>
-            </div>
-
-            {/* Botões de Download */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <AppStoreButton 
-                variant="google" 
-                href="https://play.google.com/store" 
-              />
-              <AppStoreButton 
-                variant="apple" 
-                href="https://apps.apple.com" 
-              />
-            </div>
+            </ParticleCard>
+            
+            <ParticleCard
+              className="magic-bento-card magic-bento-card--border-glow relative aspect-[9/19.5] rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.8)] bg-black p-3 h-full"
+              style={{ '--glow-color': DEFAULT_GLOW_COLOR } as React.CSSProperties}
+              disableAnimations={isMobile}
+              particleCount={8}
+              glowColor={DEFAULT_GLOW_COLOR}
+              enableTilt={true}
+              clickEffect={true}
+              enableMagnetism={false}
+            >
+              <div className="relative w-full h-full rounded-[1.75rem] overflow-hidden">
+                <Image
+                  key={rightImage}
+                  src={rightImage}
+                  alt="Tela Farol Capital"
+                  fill
+                  className={`object-contain transition-opacity duration-700 ${isRightTransitioning ? 'opacity-0' : 'opacity-100'}`}
+                  style={{ transitionTimingFunction: 'ease-in-out' }}
+                />
+              </div>
+            </ParticleCard>
           </div>
         </div>
       </div>

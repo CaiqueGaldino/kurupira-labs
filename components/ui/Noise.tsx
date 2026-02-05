@@ -23,8 +23,12 @@ export default function Noise({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
+
+    let animationFrameId: number;
+    let isAnimating = true;
+    let frameCount = 0;
 
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth;
@@ -35,6 +39,9 @@ export default function Noise({
     window.addEventListener('resize', updateCanvasSize);
 
     const createNoise = () => {
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
       const imageData = ctx.createImageData(patternSize, patternSize);
       const buffer = new Uint32Array(imageData.data.buffer);
 
@@ -43,18 +50,29 @@ export default function Noise({
       }
 
       ctx.putImageData(imageData, 0, 0);
-      ctx.scale(patternScaleX, patternScaleY);
+      ctx.restore();
     };
 
     const animate = () => {
-      createNoise();
-      requestAnimationFrame(animate);
+      if (!isAnimating) return;
+
+      // Update noise every 3 frames (reduce CPU usage)
+      if (frameCount % 3 === 0) {
+        createNoise();
+      }
+      frameCount++;
+
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
+      isAnimating = false;
       window.removeEventListener('resize', updateCanvasSize);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [patternSize, patternScaleX, patternScaleY, patternAlpha]);
 

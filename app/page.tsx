@@ -1,7 +1,11 @@
 ﻿import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Projects from '@/components/Projects';
-import About from '@/components/About';
+import AboutLabs from '@/components/AboutLabs';
+import HowICreate from '@/components/HowICreate';
+import WhatAppearsHere from '@/components/WhatAppearsHere';
+import WhatMovesMe from '@/components/WhatMovesMe';
+import Closing from '@/components/Closing';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -10,7 +14,11 @@ export default function Home() {
       <Header />
       <Hero />
       <Projects />
-      <About />
+      <AboutLabs />
+      <HowICreate />
+      <WhatAppearsHere />
+      <WhatMovesMe />
+      <Closing />
       <Footer />
     </div>
   );

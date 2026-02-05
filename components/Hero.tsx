@@ -1,53 +1,55 @@
 ﻿'use client';
 
-import DarkVeil from './ui/DarkVeil';
-import Noise from './ui/Noise';
-import TextType from './ui/TextType';
+import LiquidEther from './LiquidEther';
 
 export default function Hero() {
   return (
     <section id="home" className="relative pt-32 pb-20 px-4 min-h-screen flex items-center overflow-hidden">
-      {/* Dark Veil Background */}
+      {/* Liquid Ether Background */}
       <div className="absolute inset-0 z-0">
-        <DarkVeil primaryColor="#dc2626" secondaryColor="#000000" />
-        <Noise patternAlpha={15} />
+        <LiquidEther
+          colors={['#dc2626', '#ef4444', '#f87171']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
         {/* Degradê preto na parte de baixo */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/50 to-black pointer-events-none" />
       </div>
       
       {/* Conteúdo */}
       <div className="container mx-auto text-center relative z-10">
-        <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-red-500 via-red-600 to-red-500 bg-clip-text text-transparent tracking-wider">
+        <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-bold mb-16 bg-linear-to-r from-red-400 via-red-600 to-red-400 bg-clip-text text-transparent tracking-wider">
           KURUPIRA LABS
         </h1>
         
-        <p className="text-xl md:text-3xl text-gray-200 mb-10 max-w-3xl mx-auto font-semibold tracking-wide">
-          <TextType 
-            text={[
-              "DESENVOLVEMOS APLICATIVOS MOBILE",
-              "TRANSFORMAMOS IDEIAS EM SOLUÇÕES",
-              "INOVAÇÃO E TECNOLOGIA"
-            ]}
-            typingSpeed={80}
-            deletingSpeed={50}
-            pauseDuration={2000}
-            className="inline-block"
-          />
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 rounded-lg font-bold text-white hover:shadow-lg hover:shadow-red-600/50 transition-all text-lg tracking-wide"
-          >
-            VER PROJETOS
-          </button>
-          <button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 border-2 border-red-500 rounded-lg font-bold text-red-500 hover:bg-red-500/10 transition-all text-lg tracking-wide"
-          >
-            ENTRAR EM CONTATO
-          </button>
+        <div className="max-w-4xl mx-auto space-y-12">
+          <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed font-light">
+            Ideias, tecnologia e vontade de entender como as coisas funcionam.
+          </p>
+
+          <div className="max-w-3xl mx-auto space-y-6">
+            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
+              A Kurupira Labs é um espaço pessoal de experimentação.
+              Um lugar para desenvolver soluções, testar ideias e transformar curiosidade em projetos reais.
+            </p>
+            <div className="pt-4 border-t border-gray-800">
+              <p className="text-xl md:text-2xl text-gray-300 font-light italic">
+                Nada nasce pronto. Tudo nasce em processo.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

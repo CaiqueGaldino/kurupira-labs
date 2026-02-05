@@ -19,8 +19,11 @@ export default function DarkVeil({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
+
+    let animationFrameId: number;
+    let isAnimating = true;
 
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth;
@@ -41,9 +44,9 @@ export default function DarkVeil({
         if (!canvas) return;
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.radius = Math.random() * 1.5 + 0.5;
       }
 
       update() {
@@ -59,43 +62,52 @@ export default function DarkVeil({
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = primaryColor + '40';
+        ctx.fillStyle = primaryColor + '60';
         ctx.fill();
       }
     }
 
     const particles: Particle[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       particles.push(new Particle());
     }
 
     const animate = () => {
+      if (!isAnimating) return;
+
+      // Gradient background
       const gradient = ctx.createRadialGradient(
         canvas.width / 2,
         canvas.height / 2,
         0,
         canvas.width / 2,
         canvas.height / 2,
-        canvas.width / 2
+        Math.max(canvas.width, canvas.height) / 2
       );
       gradient.addColorStop(0, secondaryColor);
-      gradient.addColorStop(1, primaryColor + '20');
+      gradient.addColorStop(0.5, primaryColor + '15');
+      gradient.addColorStop(1, primaryColor + '30');
       
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Update and draw particles
       particles.forEach(particle => {
         particle.update();
         particle.draw();
       });
 
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
+      isAnimating = false;
       window.removeEventListener('resize', updateCanvasSize);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [primaryColor, secondaryColor]);
 
