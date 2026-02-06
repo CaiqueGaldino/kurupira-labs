@@ -7,6 +7,7 @@ import AppStoreButton from './ui/AppStoreButton';
 import ScrollFloat from './ui/ScrollFloat';
 import { useRef as useGsapRef, useEffect as useGsapEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
+import { getAssetPath } from '@/lib/assetPrefix';
 import '../components/MagicBento.css';
 
 const DEFAULT_PARTICLE_COUNT = 12;
@@ -470,11 +471,11 @@ export default function Projects() {
   ];
 
   const phoneImages = [
-    '/images/tela-farol-capital-1.jpeg',
-    '/images/tela-farol-capital-2.jpeg',
-    '/images/tela-farol-capital-3.jpeg',
-    '/images/tela-farol-capital-4.jpeg',
-    '/images/tela-farol-capital-5.jpeg',
+    getAssetPath('/images/tela-farol-capital-1.jpeg'),
+    getAssetPath('/images/tela-farol-capital-2.jpeg'),
+    getAssetPath('/images/tela-farol-capital-3.jpeg'),
+    getAssetPath('/images/tela-farol-capital-4.jpeg'),
+    getAssetPath('/images/tela-farol-capital-5.jpeg'),
   ];
 
   useEffect(() => {
@@ -560,7 +561,7 @@ export default function Projects() {
                 <div className="absolute inset-0 bg-linear-to-tr from-green-700/30 to-transparent"></div>
                 <div className="relative w-32 h-32 z-10">
                   <Image
-                    src="/images/icone-farol-capital-sem-fundo.webp"
+                    src={getAssetPath('/images/icone-farol-capital-sem-fundo.webp')}
                     alt="Farol Capital"
                     fill
                     className="object-contain"

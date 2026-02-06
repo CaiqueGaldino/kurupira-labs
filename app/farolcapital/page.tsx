@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { getAssetPath } from '@/lib/assetPrefix';
 
 export default function FarolCapital() {
   return (
@@ -12,7 +13,7 @@ export default function FarolCapital() {
             <div className="relative">
               <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full"></div>
               <Image
-                src="/images/icone-farol-capital.png"
+                src={getAssetPath('/images/icone-farol-capital.png')}
                 alt="Farol Capital"
                 width={140}
                 height={140}

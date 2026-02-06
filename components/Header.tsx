@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import { getAssetPath } from '@/lib/assetPrefix';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10">
               <Image
-                src="/images/icone-kurupira-1.webp"
+                src={getAssetPath('/images/icone-kurupira-1.webp')}
                 alt="Kurupira Labs"
                 fill
                 className="object-contain"
