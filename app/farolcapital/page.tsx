@@ -6,7 +6,7 @@ import BetaTestersCard from '@/components/BetaTestersCard';
 
 export default function FarolCapital() {
   return (
-    <div className="min-h-screen bg-[#080808] text-gray-200 font-sans selection:bg-green-500/30">
+    <div className="min-h-screen bg-[#080808] text-gray-200 font-sans selection:bg-[#021E46]/40">
       
       {/* Header / Nav */}
       <div className="container mx-auto px-6 py-8 flex justify-between items-center max-w-5xl">
@@ -19,13 +19,13 @@ export default function FarolCapital() {
         {/* Hero Section */}
         <div className="flex flex-col md:flex-row items-center gap-12 mb-32">
           {/* Left: Icon */}
-          <div className="w-32 h-32 md:w-48 md:h-48 relative shrink-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#111] p-4 flex items-center justify-center">
-             <div className="absolute inset-0 bg-green-500/10 blur-2xl"></div>
+          <div className="w-32 h-32 md:w-48 md:h-48 relative shrink-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#111] flex items-center justify-center">
+             <div className="absolute inset-0 bg-[#021E46]/40 blur-2xl"></div>
              <Image
-                src={getAssetPath('/images/icone-farol-capital-sem-fundo.webp')}
+                src={getAssetPath('/images/icone-farol-capital.png')}
                 alt="Farol Capital App"
                 fill
-                style={{ objectFit: 'contain', padding: '16px' }}
+                style={{ objectFit: 'cover' }}
                 className="relative z-10"
               />
           </div>
@@ -33,14 +33,14 @@ export default function FarolCapital() {
           {/* Right: Text */}
           <div className="flex-1 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
-              <LineChart size={14} className="text-green-500" />
+              <LineChart size={14} className="text-[#6EA8E8]" />
               <span className="text-xs font-bold tracking-widest text-white/60">FINANÇAS</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#f5f5f5] mb-4">
               Farol Capital
             </h1>
-            <p className="text-xl md:text-2xl text-green-400 font-light mb-6">
+            <p className="text-xl md:text-2xl text-[#6EA8E8] font-light mb-6">
               Clareza para quem quer ir longe
             </p>
             <p className="text-base text-white/50 max-w-xl leading-relaxed mb-8 mx-auto md:mx-0">
@@ -51,7 +51,7 @@ export default function FarolCapital() {
               href="https://play.google.com/store/apps/details?id=com.kurupiralabs.farol_capital&pcampaignid=web_share"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold text-sm transition-all shadow-lg hover:shadow-green-500/20"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#021E46] hover:bg-[#06346F] text-white rounded-xl font-semibold text-sm transition-all shadow-lg hover:shadow-[#021E46]/40"
             >
               <Download size={18} />
               BAIXAR NO GOOGLE PLAY
@@ -75,12 +75,12 @@ export default function FarolCapital() {
             </p>
           </div>
           <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-            <Compass className="text-green-500 mb-6" size={28} />
+            <Compass className="text-[#6EA8E8] mb-6" size={28} />
             <h2 className="text-xl font-bold text-[#f5f5f5] mb-4">Nossa Visão</h2>
             <p className="text-sm text-white/40 leading-relaxed mb-4">
               Acreditamos que cuidar das finanças requer antecipar cenários e entender decisões a longo prazo, não apenas lançar números.
             </p>
-            <p className="text-sm font-semibold text-green-400">
+            <p className="text-sm font-semibold text-[#6EA8E8]">
               Quem vê o que vem pela frente, decide melhor hoje.
             </p>
           </div>
@@ -89,26 +89,26 @@ export default function FarolCapital() {
         {/* Como Funciona / Recursos */}
         <div className="mb-24">
            <div className="flex items-center gap-3 mb-12">
-            <TrendingUp className="text-green-500" size={24} />
+            <TrendingUp className="text-[#6EA8E8]" size={24} />
             <h2 className="text-2xl font-bold text-[#f5f5f5]">O que é o Farol Capital?</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <BarChart3 className="text-green-400 mb-6" size={28} />
+              <BarChart3 className="text-[#6EA8E8] mb-6" size={28} />
               <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Fluxo Futuro</h3>
               <p className="text-sm text-white/40 leading-relaxed">
                 Entenda seu saldo nos próximos meses simulando entradas, saídas e parcelamentos antes mesmo de acontecerem.
               </p>
             </div>
             <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <PiggyBank className="text-green-400 mb-6" size={28} />
+              <PiggyBank className="text-[#6EA8E8] mb-6" size={28} />
               <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Menos improviso</h3>
               <p className="text-sm text-white/40 leading-relaxed">
-                Tome decisões como "posso comprar isso parcelado?" sem medo, embasado pela sua projeção no app.
+                Tome decisões como &quot;posso comprar isso parcelado?&quot; sem medo, embasado pela sua projeção no app.
               </p>
             </div>
             <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <ShieldCheck className="text-green-400 mb-6" size={28} />
+              <ShieldCheck className="text-[#6EA8E8] mb-6" size={28} />
               <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Transparência Total</h3>
               <p className="text-sm text-white/40 leading-relaxed">
                 Sem promessas irreais ou linguagem difícil. É pra usar e se sentir seguro com seu próprio dinheiro e patrimônio.
@@ -120,24 +120,24 @@ export default function FarolCapital() {
         {/* Promise Cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-24">
           <div className="bg-[#111] border border-white/5 rounded-2xl p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/5 blur-3xl rounded-full"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#021E46]/30 blur-3xl rounded-full"></div>
             <h3 className="text-xl font-bold text-[#f5f5f5] mb-8 relative z-10">O que prometemos</h3>
             <ul className="space-y-4 relative z-10">
               {['Direção e controle real', 'Menos ansiedade para pagar contas', 'Mais previsibilidade mensal e anual'].map((b, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm text-white/60">
-                  <CheckCircle2 size={16} className="text-green-500" />
+                  <CheckCircle2 size={16} className="text-[#6EA8E8]" />
                   {b}
                 </li>
               ))}
             </ul>
           </div>
           <div className="bg-[#111] border border-white/5 rounded-2xl p-8 relative overflow-hidden">
-             <div className="absolute top-0 left-0 w-64 h-64 bg-green-500/5 blur-3xl rounded-full"></div>
+             <div className="absolute top-0 left-0 w-64 h-64 bg-[#021E46]/30 blur-3xl rounded-full"></div>
              <h3 className="text-xl font-bold text-[#f5f5f5] mb-8 relative z-10">Transparência</h3>
              <ul className="space-y-4 relative z-10">
                {['Sem termos complicados ou técnicos', 'Sem gráficos complexos', '100% offline, você é dono dos dados'].map((b, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm text-white/60">
-                  <ChevronRight size={16} className="text-green-500" />
+                  <ChevronRight size={16} className="text-[#6EA8E8]" />
                   <span className="font-semibold text-white/80">{b}</span>
                 </li>
               ))}
@@ -154,7 +154,7 @@ export default function FarolCapital() {
             href="/politicasdeprivacidadesfarolcapital"
             className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-sm font-semibold text-white/60 hover:text-white"
           >
-            <ShieldCheck size={16} className="text-green-400" />
+            <ShieldCheck size={16} className="text-[#6EA8E8]" />
             Política de Privacidade
           </Link>
           

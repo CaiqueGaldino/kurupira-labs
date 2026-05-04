@@ -74,7 +74,7 @@ O arquivo `app-ads.txt` está disponível em:
 ## 🎨 Cores do Site
 
 - **Primárias**: Preto e Vermelho
-- **Farol Capital**: Preto e Verde
+- **Farol Capital**: Preto e Azul
 
 ## 📄 Licença
 

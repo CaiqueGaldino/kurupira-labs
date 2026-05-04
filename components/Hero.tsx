@@ -1,5 +1,7 @@
 'use client';
 
+import FlameAvatar from './FlameAvatar';
+
 export default function Hero() {
   return (
     <section
@@ -13,7 +15,6 @@ export default function Hero() {
         position: 'relative',
       }}
     >
-      {/* Background ambient glow */}
       <div
         style={{
           position: 'absolute',
@@ -28,7 +29,6 @@ export default function Hero() {
           zIndex: 0,
         }}
       />
-      {/* Top highlight */}
       <div
         style={{
           position: 'absolute',
@@ -42,7 +42,10 @@ export default function Hero() {
       />
 
       <div style={{ maxWidth: '1400px', width: '100%', textAlign: 'center', zIndex: 1, position: 'relative', marginTop: '10vh' }}>
-        {/* Title */}
+        <div className="anim-fade-up" style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
+          <FlameAvatar size={92} />
+        </div>
+
         <h1
           className="anim-fade-up"
           style={{
@@ -62,7 +65,6 @@ export default function Hero() {
           KURUPIRA LABS
         </h1>
 
-        {/* Subtitle */}
         <p
           className="anim-fade-up"
           style={{
@@ -78,7 +80,6 @@ export default function Hero() {
           Apps, sites e vontade de transformar ideias em soluções reais.
         </p>
 
-        {/* CTA */}
         <div
           className="anim-fade-up"
           style={{ animationDelay: '0.28s', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}
@@ -98,13 +99,13 @@ export default function Hero() {
               boxShadow: '0 8px 20px -6px rgba(249,115,22,0.6)',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={e => { 
-                e.currentTarget.style.transform = 'translateY(-2px)'; 
-                e.currentTarget.style.boxShadow = '0 12px 24px -6px rgba(249,115,22,0.8)';
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 12px 24px -6px rgba(249,115,22,0.8)';
             }}
-            onMouseLeave={e => { 
-                e.currentTarget.style.transform = 'translateY(0)'; 
-                e.currentTarget.style.boxShadow = '0 8px 20px -6px rgba(249,115,22,0.6)';
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 20px -6px rgba(249,115,22,0.6)';
             }}
           >
             VER PROJETOS
@@ -124,24 +125,23 @@ export default function Hero() {
               transition: 'all 0.3s ease',
               backdropFilter: 'blur(10px)',
             }}
-            onMouseEnter={e => { 
-                e.currentTarget.style.borderColor = 'rgba(249,115,22,0.5)'; 
-                e.currentTarget.style.color = '#fff'; 
-                e.currentTarget.style.transform = 'translateY(-2px)'; 
-                e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(249,115,22,0.5)';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
             }}
-            onMouseLeave={e => { 
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; 
-                e.currentTarget.style.color = 'rgba(245,245,245,0.8)'; 
-                e.currentTarget.style.transform = 'translateY(0)'; 
-                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+              e.currentTarget.style.color = 'rgba(245,245,245,0.8)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
             }}
           >
             SOBRE O LABS
           </button>
         </div>
 
-        {/* Scroll hint */}
         <div
           className="anim-fade-in"
           style={{

@@ -14,7 +14,6 @@ const farolPhoneImages = [
   '/images/tela-farol-capital-2.jpeg',
   '/images/tela-farol-capital-3.jpeg',
   '/images/tela-farol-capital-4.jpeg',
-  '/images/tela-farol-capital-5.jpeg',
 ];
 
 const oasisPhoneImages = [
@@ -186,10 +185,10 @@ export default function Projects() {
               <div
                 style={{
                   width: '48px', height: '48px', borderRadius: '14px', overflow: 'hidden', flexShrink: 0, position: 'relative',
-                  background: 'linear-gradient(135deg, #059669, #22c55e)',
+                  background: 'linear-gradient(135deg, #021E46, #06346F)',
                 }}
               >
-                <Image src={getAssetPath('/images/icone-farol-capital-sem-fundo.webp')} alt="Farol Capital" fill style={{ objectFit: 'contain', padding: '6px' }} />
+                <Image src={getAssetPath('/images/icone-farol-capital.png')} alt="Farol Capital" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f5f5f5', letterSpacing: '0.02em' }}>Farol Capital</h2>
@@ -224,7 +223,7 @@ export default function Projects() {
                   textDecoration: 'none',
                   transition: 'border-color 0.2s, color 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(34,197,94,0.4)'; e.currentTarget.style.color = '#f5f5f5'; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(2,30,70,0.75)'; e.currentTarget.style.color = '#f5f5f5'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(245,245,245,0.6)'; }}
               >
                 MAIS DETALHES <ArrowRight size={14} />
@@ -234,8 +233,8 @@ export default function Projects() {
 
           {/* Right: phones */}
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'flex-start', position: 'relative' }}>
-            <Phone src={getAssetPath(farolPhoneImages[leftIdx])} fading={fadingL} />
-            <Phone src={getAssetPath(farolPhoneImages[rightIdx])} fading={fadingR} offset={28} />
+            <Phone src={getAssetPath(farolPhoneImages[leftIdx % farolPhoneImages.length])} fading={fadingL} />
+            <Phone src={getAssetPath(farolPhoneImages[rightIdx % farolPhoneImages.length])} fading={fadingR} offset={28} />
           </div>
         </div>
 

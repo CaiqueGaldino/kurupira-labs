@@ -102,3 +102,68 @@
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
+
+.flame-avatar {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.flame-avatar--glow::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(249,115,22,0.32), transparent 66%);
+  filter: blur(16px);
+  animation: avatarPulse 2.8s ease-in-out infinite;
+}
+
+.flame-avatar__svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 10px 24px rgba(249,115,22,0.18));
+}
+
+.flame-avatar__body {
+  transform-origin: 50% 88%;
+  animation: avatarFlicker 2.4s ease-in-out infinite;
+}
+
+.flame-avatar__highlight {
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.flame-avatar__face {
+  transform-origin: 50% 62%;
+  animation: avatarBlink 6s ease-in-out infinite;
+}
+
+@keyframes avatarFlicker {
+  0%, 100% { transform: rotate(-0.8deg) scale(1); }
+  50% { transform: rotate(0.8deg) scale(1.02, 0.99); }
+}
+
+@keyframes avatarBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.12); }
+}
+
+@keyframes avatarPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

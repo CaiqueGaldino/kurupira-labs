@@ -27,7 +27,7 @@ export default function PoliticasPrivacidadeOasis() {
               1. INTRODUÇÃO
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              Bem-vindo ao Oasis - Controle de Água ("nós", "nosso" ou "aplicativo"). Esta Política de Privacidade explica como coletamos, usamos e protegemos suas informações quando você usa nosso aplicativo móvel. Ao usar o Oasis, você concorda com a coleta e uso de informações de acordo com esta política.
+              Bem-vindo ao Oasis - Controle de Água (&quot;nós&quot;, &quot;nosso&quot; ou &quot;aplicativo&quot;). Esta Política de Privacidade explica como coletamos, usamos e protegemos suas informações quando você usa nosso aplicativo móvel. Ao usar o Oasis, você concorda com a coleta e uso de informações de acordo com esta política.
             </p>
           </section>
 

@@ -16,7 +16,12 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = {
   title: "Kurupira Labs",
-  description: "Desenvolvemos aplicativos mobile que transformam ideias em soluções práticas e inteligentes",
+  description: "Desenvolvemos aplicativos, sites e soluções práticas para ideias reais.",
+  icons: {
+    icon: "/avatar-icon.svg",
+    shortcut: "/avatar-icon.svg",
+    apple: "/avatar-icon.svg",
+  },
 };
 
 export default function RootLayout({

@@ -16,11 +16,11 @@ google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wider text-center">
           APP-ADS.TXT
         </h1>
-        <h2 className="text-2xl md:text-3xl font-bold text-green-400 mb-8 tracking-wide text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#6EA8E8] mb-8 tracking-wide text-center">
           FAROL CAPITAL
         </h2>
         
-        <div className="bg-zinc-900 rounded-lg p-6 border border-green-500/30 mb-8">
+        <div className="bg-zinc-900 rounded-lg p-6 border border-[#021E46]/40 mb-8">
           <p className="text-gray-300 mb-4">
             Este arquivo é necessário para verificar a autenticidade dos anúncios exibidos no aplicativo Farol Capital.
           </p>
@@ -29,17 +29,17 @@ google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
           </p>
         </div>
 
-        <div className="bg-black rounded-lg p-6 border border-green-500/50">
+        <div className="bg-black rounded-lg p-6 border border-[#021E46]/70">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold text-white tracking-wide">CONTEÚDO DO ARQUIVO</h3>
             <Link
               href="/app-ads.txt"
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-semibold text-sm transition-colors"
+              className="px-4 py-2 bg-[#021E46] hover:bg-[#06346F] text-white rounded font-semibold text-sm transition-colors"
             >
               BAIXAR
             </Link>
           </div>
-          <pre className="text-green-400 font-mono text-sm overflow-x-auto whitespace-pre-wrap">
+          <pre className="text-[#6EA8E8] font-mono text-sm overflow-x-auto whitespace-pre-wrap">
             {adsContent}
           </pre>
         </div>
@@ -52,12 +52,12 @@ google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
         </div>
 
         <div className="mt-8 text-center">
-          <a
+          <Link
             href="/"
             className="inline-block px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition-colors tracking-wide"
           >
             VOLTAR PARA HOME
-          </a>
+          </Link>
         </div>
       </div>
     </div>

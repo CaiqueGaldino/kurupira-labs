@@ -2,9 +2,9 @@ export default function PoliticasPrivacidade() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black text-gray-200 relative overflow-hidden">
       {/* Background Effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-green-900/10 via-transparent to-green-900/5 pointer-events-none"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-green-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#021E46]/20 via-transparent to-[#021E46]/10 pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#021E46]/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-[#021E46]/30 rounded-full blur-3xl pointer-events-none"></div>
       
       {/* Content */}
       <div className="relative z-10">
@@ -12,7 +12,7 @@ export default function PoliticasPrivacidade() {
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wider text-center">
           POLÍTICA DE PRIVACIDADE
         </h1>
-        <h2 className="text-2xl md:text-3xl font-bold text-green-400 mb-8 tracking-wide text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#6EA8E8] mb-8 tracking-wide text-center">
           FAROL CAPITAL
         </h2>
         
@@ -22,12 +22,12 @@ export default function PoliticasPrivacidade() {
 
         <div className="prose prose-invert prose-lg max-w-none space-y-8">
           <p className="text-gray-300 leading-relaxed">
-            A <span className="text-white font-semibold">Kurupira Labs</span>, desenvolvedora do aplicativo <span className="text-green-400 font-semibold">Farol Capital</span>, está comprometida em proteger sua privacidade. Esta Política de Privacidade explica como coletamos, usamos, armazenamos e protegemos suas informações ao utilizar nosso aplicativo de gestão financeira pessoal.
+            A <span className="text-white font-semibold">Kurupira Labs</span>, desenvolvedora do aplicativo <span className="text-[#6EA8E8] font-semibold">Farol Capital</span>, está comprometida em proteger sua privacidade. Esta Política de Privacidade explica como coletamos, usamos, armazenamos e protegemos suas informações ao utilizar nosso aplicativo de gestão financeira pessoal.
           </p>
 
-          <div className="bg-green-950/30 border-l-4 border-green-500 p-6 rounded-r-lg">
-            <p className="text-green-100 font-semibold leading-relaxed">
-              <strong className="text-green-400">RESUMO IMPORTANTE:</strong> O Farol Capital é um aplicativo de gestão financeira 100% offline. Todos os seus dados financeiros são armazenados exclusivamente no seu dispositivo e nunca são enviados para servidores externos.
+          <div className="bg-[#021E46]/25 border-l-4 border-[#021E46] p-6 rounded-r-lg">
+            <p className="text-[#D8E9FF] font-semibold leading-relaxed">
+              <strong className="text-[#6EA8E8]">RESUMO IMPORTANTE:</strong> O Farol Capital é um aplicativo de gestão financeira 100% offline. Todos os seus dados financeiros são armazenados exclusivamente no seu dispositivo e nunca são enviados para servidores externos.
             </p>
           </div>
 
@@ -36,7 +36,7 @@ export default function PoliticasPrivacidade() {
               1. INFORMAÇÕES QUE COLETAMOS
             </h3>
             
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               1.1 Dados Financeiros Locais
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -51,14 +51,14 @@ export default function PoliticasPrivacidade() {
               <li>Orçamentos: limites de gastos por categoria</li>
             </ul>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               1.2 Dados de Uso do Aplicativo
             </h4>
             <p className="text-gray-300 leading-relaxed">
               Não coletamos dados de uso, análise de comportamento ou telemetria do aplicativo.
             </p>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               1.3 Publicidade
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -71,7 +71,7 @@ export default function PoliticasPrivacidade() {
               <li>Dados de interação com anúncios</li>
             </ul>
             <p className="text-gray-300 leading-relaxed mt-4">
-              Para mais informações sobre como o Google processa esses dados, consulte a Política de Privacidade do Google: <a href="https://policies.google.com/privacy" className="text-green-400 hover:text-green-300 underline" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy</a>
+              Para mais informações sobre como o Google processa esses dados, consulte a Política de Privacidade do Google: <a href="https://policies.google.com/privacy" className="text-[#6EA8E8] hover:text-[#9BC8FF] underline" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy</a>
             </p>
           </section>
 
@@ -80,7 +80,7 @@ export default function PoliticasPrivacidade() {
               2. COMO USAMOS SUAS INFORMAÇÕES
             </h3>
             
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               2.1 Armazenamento Local
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -93,7 +93,7 @@ export default function PoliticasPrivacidade() {
               <li>Acessíveis apenas por você através do aplicativo</li>
             </ul>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               2.2 Finalidade dos Dados
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -108,7 +108,7 @@ export default function PoliticasPrivacidade() {
               <li>Fornecer insights sobre seus hábitos financeiros</li>
             </ul>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               2.3 Anúncios Personalizados
             </h4>
             <p className="text-gray-300 leading-relaxed">
@@ -127,14 +127,14 @@ export default function PoliticasPrivacidade() {
               </p>
             </div>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               3.1 Exceções de Compartilhamento
             </h4>
             <p className="text-gray-300 leading-relaxed">
               Os únicos dados compartilhados são aqueles coletados pelo Google AdMob para fins de publicidade, conforme descrito na seção 1.3.
             </p>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               3.2 Requisitos Legais
             </h4>
             <p className="text-gray-300 leading-relaxed">
@@ -147,7 +147,7 @@ export default function PoliticasPrivacidade() {
               4. SEGURANÇA DOS DADOS
             </h3>
             
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               4.1 Proteção Local
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -159,7 +159,7 @@ export default function PoliticasPrivacidade() {
               <li>Autenticação biométrica (opcional): Você pode habilitar bloqueio por impressão digital ou reconhecimento facial</li>
             </ul>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               4.2 Responsabilidade do Usuário
             </h4>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -188,7 +188,7 @@ export default function PoliticasPrivacidade() {
               <li><strong className="text-white">Portabilidade:</strong> Transfira seus dados para outro dispositivo através de backup</li>
             </ul>
 
-            <h4 className="text-2xl font-bold text-green-400 mt-6 mb-3 tracking-wide">
+            <h4 className="text-2xl font-bold text-[#6EA8E8] mt-6 mb-3 tracking-wide">
               5.1 Como Exercer seus Direitos
             </h4>
             <p className="text-gray-300 leading-relaxed">
@@ -246,7 +246,7 @@ export default function PoliticasPrivacidade() {
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-300 ml-4">
               <li>Notificação dentro do aplicativo</li>
-              <li>Atualização da data "Última atualização" no topo desta página</li>
+              <li>Atualização da data &quot;Última atualização&quot; no topo desta página</li>
             </ul>
             <p className="text-gray-300 leading-relaxed mt-4">
               Recomendamos que você revise esta política regularmente para se manter informado sobre como protegemos suas informações.
@@ -269,10 +269,10 @@ export default function PoliticasPrivacidade() {
             <p className="text-gray-300 leading-relaxed mb-4">
               Se você tiver dúvidas, preocupações ou solicitações sobre esta Política de Privacidade ou sobre o tratamento de seus dados, entre em contato conosco:
             </p>
-            <div className="bg-zinc-900 p-6 rounded-lg border border-green-500/30">
+            <div className="bg-zinc-900 p-6 rounded-lg border border-[#021E46]/40">
               <p className="text-gray-300 mb-2"><strong className="text-white">Desenvolvedor:</strong> Kurupira Labs</p>
               <p className="text-gray-300 mb-2"><strong className="text-white">Aplicativo:</strong> Farol Capital</p>
-              <p className="text-gray-300 mb-2"><strong className="text-white">E-mail:</strong> <a href="mailto:contato@kurupiralabs.com" className="text-green-400 hover:text-green-300">contato@kurupiralabs.com</a></p>
+              <p className="text-gray-300 mb-2"><strong className="text-white">E-mail:</strong> <a href="mailto:contato@kurupiralabs.com" className="text-[#6EA8E8] hover:text-[#9BC8FF]">contato@kurupiralabs.com</a></p>
               <p className="text-gray-300"><strong className="text-white">Tempo de resposta:</strong> Até 5 dias úteis</p>
             </div>
           </section>

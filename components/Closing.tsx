@@ -1,5 +1,7 @@
 'use client';
 
+import FlameAvatar from './FlameAvatar';
+
 export default function Closing() {
   return (
     <section
@@ -11,7 +13,6 @@ export default function Closing() {
         position: 'relative',
       }}
     >
-      {/* Thin fire line center-top */}
       <div
         style={{
           position: 'absolute',
@@ -23,6 +24,10 @@ export default function Closing() {
           background: 'linear-gradient(90deg, transparent, #f97316, transparent)',
         }}
       />
+
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '36px' }}>
+        <FlameAvatar size={72} />
+      </div>
 
       <p
         style={{
