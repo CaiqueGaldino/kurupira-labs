@@ -1,170 +1,268 @@
-import Link from 'next/link';
+'use client';
+
+import { useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getAssetPath } from '@/lib/assetPrefix';
-import { LineChart, Compass, CheckCircle2, TrendingUp, BarChart3, ChevronRight, ShieldCheck, Download, PiggyBank } from 'lucide-react';
-import BetaTestersCard from '@/components/BetaTestersCard';
+import {
+  ArrowLeft,
+  BarChart3,
+  CalendarClock,
+  CheckCircle2,
+  Download,
+  ExternalLink,
+  Lock,
+  ShieldCheck,
+  TrendingUp,
+  WalletCards,
+} from 'lucide-react';
+
+const PLAY_STORE_URL =
+  'https://play.google.com/store/apps/details?id=com.kurupiralabs.farol_capital&pcampaignid=web_share';
+
+const screenshots = [
+  '/images/tela-farol-capital-1.jpeg',
+  '/images/tela-farol-capital-2.jpeg',
+  '/images/tela-farol-capital-3.jpeg',
+];
+
+const highlights = [
+  {
+    icon: CalendarClock,
+    title: 'Veja os próximos meses',
+    text: 'Projete receitas, despesas e parcelas antes de comprometer seu saldo.',
+  },
+  {
+    icon: WalletCards,
+    title: 'Decida com mais calma',
+    text: 'Entenda se uma compra cabe no seu fluxo sem depender de chute.',
+  },
+  {
+    icon: Lock,
+    title: 'Dados no seu dispositivo',
+    text: 'O Farol Capital funciona offline e mantém suas informações com você.',
+  },
+];
 
 export default function FarolCapital() {
-  return (
-    <div className="min-h-screen bg-[#080808] text-gray-200 font-sans selection:bg-[#021E46]/40">
-      
-      {/* Header / Nav */}
-      <div className="container mx-auto px-6 py-8 flex justify-between items-center max-w-5xl">
-        <Link href="/" className="text-white/50 hover:text-white transition-colors text-sm font-semibold tracking-widest flex items-center gap-2">
-          ← VOLTAR
-        </Link>
-      </div>
+  useEffect(() => {
+    window.location.replace(PLAY_STORE_URL);
+  }, []);
 
-      <div className="container mx-auto px-6 py-12 max-w-5xl">
-        {/* Hero Section */}
-        <div className="flex flex-col md:flex-row items-center gap-12 mb-32">
-          {/* Left: Icon */}
-          <div className="w-32 h-32 md:w-48 md:h-48 relative shrink-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#111] flex items-center justify-center">
-             <div className="absolute inset-0 bg-[#021E46]/40 blur-2xl"></div>
-             <Image
-                src={getAssetPath('/images/icone-farol-capital.png')}
-                alt="Farol Capital App"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="relative z-10"
-              />
-          </div>
-          
-          {/* Right: Text */}
-          <div className="flex-1 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
-              <LineChart size={14} className="text-[#6EA8E8]" />
-              <span className="text-xs font-bold tracking-widest text-white/60">FINANÇAS</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#f5f5f5] mb-4">
-              Farol Capital
-            </h1>
-            <p className="text-xl md:text-2xl text-[#6EA8E8] font-light mb-6">
-              Clareza para quem quer ir longe
-            </p>
-            <p className="text-base text-white/50 max-w-xl leading-relaxed mb-8 mx-auto md:mx-0">
-              Um aplicativo focado em enxergar o futuro. Projete como suas despesas e receitas de hoje vão impactar o seu saldo nos próximos meses.
-            </p>
+  return (
+    <main className="min-h-screen overflow-hidden bg-[#07090d] text-white selection:bg-[#2dd4bf]/30">
+      <section className="relative min-h-screen px-5 pb-28 pt-5 sm:px-8 lg:px-10">
+        <div className="absolute inset-0 bg-[linear-gradient(145deg,#07090d_0%,#0d1724_42%,#07100f_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2dd4bf]/70 to-transparent" />
+
+        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-2.5rem)] max-w-6xl flex-col">
+          <nav className="flex items-center justify-between">
+            <Link
+              href="/"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/75 transition hover:border-white/20 hover:text-white"
+              aria-label="Voltar para a página inicial"
+            >
+              <ArrowLeft size={18} />
+            </Link>
 
             <a
-              href="https://play.google.com/store/apps/details?id=com.kurupiralabs.farol_capital&pcampaignid=web_share"
+              href={PLAY_STORE_URL}
+              className="inline-flex items-center gap-2 rounded-lg border border-[#2dd4bf]/30 bg-[#2dd4bf]/10 px-3 py-2 text-sm font-semibold text-[#b7fff1] transition hover:bg-[#2dd4bf]/15"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[#021E46] hover:bg-[#06346F] text-white rounded-xl font-semibold text-sm transition-all shadow-lg hover:shadow-[#021E46]/40"
             >
-              <Download size={18} />
-              BAIXAR NO GOOGLE PLAY
+              <ExternalLink size={16} />
+              Google Play
             </a>
-          </div>
-        </div>
+          </nav>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-white/5 my-24"></div>
+          <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+            <div className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:text-left">
+              <div className="mx-auto mb-6 flex w-fit items-center gap-3 rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2 lg:mx-0">
+                <div className="relative h-11 w-11 overflow-hidden rounded-lg">
+                  <Image
+                    src={getAssetPath('/images/icone-farol-capital.png')}
+                    alt="Ícone do Farol Capital"
+                    fill
+                    priority
+                    sizes="44px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-white">Farol Capital</p>
+                  <p className="text-xs text-white/55">Gestão financeira offline</p>
+                </div>
+              </div>
 
-        {/* Problema / Visao */}
-        <div className="grid md:grid-cols-2 gap-6 mb-24">
-          <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-            <Compass className="text-red-400/80 mb-6" size={28} />
-            <h2 className="text-xl font-bold text-[#f5f5f5] mb-4">O Problema</h2>
-            <p className="text-sm text-white/40 leading-relaxed mb-4">
-              A maioria das pessoas controla o dinheiro olhando apenas para o agora. Anota gastos e confere o saldo, mas decide no escuro sobre o futuro.
-            </p>
-            <p className="text-sm font-semibold text-red-400/80">
-              O resultado é insegurança constante sobre o amanhã.
-            </p>
-          </div>
-          <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-            <Compass className="text-[#6EA8E8] mb-6" size={28} />
-            <h2 className="text-xl font-bold text-[#f5f5f5] mb-4">Nossa Visão</h2>
-            <p className="text-sm text-white/40 leading-relaxed mb-4">
-              Acreditamos que cuidar das finanças requer antecipar cenários e entender decisões a longo prazo, não apenas lançar números.
-            </p>
-            <p className="text-sm font-semibold text-[#6EA8E8]">
-              Quem vê o que vem pela frente, decide melhor hoje.
-            </p>
-          </div>
-        </div>
+              <p className="mb-3 text-sm font-semibold text-[#5eead4]">
+                Abrindo a Play Store...
+              </p>
+              <h1 className="mb-5 text-5xl font-black leading-[0.92] text-white sm:text-6xl lg:text-7xl">
+                Clareza para decidir antes de gastar.
+              </h1>
+              <p className="mx-auto mb-7 max-w-lg text-lg leading-7 text-white/67 lg:mx-0">
+                O Farol Capital ajuda você a enxergar seu saldo futuro, organizar compromissos e planejar compras com mais segurança.
+              </p>
 
-        {/* Como Funciona / Recursos */}
-        <div className="mb-24">
-           <div className="flex items-center gap-3 mb-12">
-            <TrendingUp className="text-[#6EA8E8]" size={24} />
-            <h2 className="text-2xl font-bold text-[#f5f5f5]">O que é o Farol Capital?</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <BarChart3 className="text-[#6EA8E8] mb-6" size={28} />
-              <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Fluxo Futuro</h3>
-              <p className="text-sm text-white/40 leading-relaxed">
-                Entenda seu saldo nos próximos meses simulando entradas, saídas e parcelamentos antes mesmo de acontecerem.
+              <div className="mx-auto mb-6 grid max-w-sm grid-cols-3 gap-2 lg:mx-0">
+                {[
+                  ['100%', 'offline'],
+                  ['Fluxo', 'futuro'],
+                  ['Sem', 'complicar'],
+                ].map(([value, label]) => (
+                  <div key={label} className="rounded-lg border border-white/10 bg-white/[0.045] px-3 py-3">
+                    <p className="text-lg font-extrabold text-white">{value}</p>
+                    <p className="text-xs text-white/52">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href={PLAY_STORE_URL}
+                className="inline-flex min-h-14 w-full max-w-sm items-center justify-center gap-3 rounded-lg bg-[#2dd4bf] px-6 py-4 text-base font-extrabold text-[#04100f] shadow-[0_18px_45px_rgba(45,212,191,0.22)] transition hover:bg-[#5eead4] sm:w-auto"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download size={20} />
+                Baixar no Google Play
+              </a>
+
+              <div className="mx-auto mt-5 h-1.5 max-w-sm overflow-hidden rounded-full bg-white/10 lg:mx-0">
+                <div className="h-full w-full origin-left animate-[farol-load_0.9s_ease-out_forwards] bg-[#2dd4bf]" />
+              </div>
+              <p className="mt-3 text-sm text-white/48">
+                Se nada acontecer, toque no botão acima para continuar.
               </p>
             </div>
-            <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <PiggyBank className="text-[#6EA8E8] mb-6" size={28} />
-              <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Menos improviso</h3>
-              <p className="text-sm text-white/40 leading-relaxed">
-                Tome decisões como &quot;posso comprar isso parcelado?&quot; sem medo, embasado pela sua projeção no app.
-              </p>
-            </div>
-            <div className="bg-[#111] border border-white/5 rounded-2xl p-8">
-              <ShieldCheck className="text-[#6EA8E8] mb-6" size={28} />
-              <h3 className="text-lg font-bold text-[#f5f5f5] mb-3">Transparência Total</h3>
-              <p className="text-sm text-white/40 leading-relaxed">
-                Sem promessas irreais ou linguagem difícil. É pra usar e se sentir seguro com seu próprio dinheiro e patrimônio.
-              </p>
+
+            <div className="relative mx-auto flex w-full max-w-[360px] justify-center pt-2 lg:max-w-[470px]">
+              <div className="absolute -left-5 top-8 hidden h-44 w-20 rotate-[-10deg] rounded-lg border border-amber-300/20 bg-amber-300/10 sm:block" />
+              <div className="absolute -right-4 bottom-16 hidden h-28 w-28 rounded-lg border border-rose-300/20 bg-rose-300/10 sm:block" />
+
+              <div className="relative z-10 aspect-[9/18.8] w-[72%] max-w-[280px] rounded-[2rem] border border-white/18 bg-[#0a0d12] p-2 shadow-2xl shadow-black/50">
+                <div className="relative h-full overflow-hidden rounded-[1.55rem] bg-black">
+                  <Image
+                    src={getAssetPath(screenshots[0])}
+                    alt="Tela do aplicativo Farol Capital com visão financeira"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 72vw, 280px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              <div className="absolute bottom-4 right-0 z-20 w-44 rounded-lg border border-white/12 bg-[#101722]/95 p-4 text-left shadow-xl backdrop-blur">
+                <div className="mb-3 flex items-center gap-2 text-[#5eead4]">
+                  <TrendingUp size={17} />
+                  <span className="text-sm font-bold">Previsibilidade</span>
+                </div>
+                <p className="text-sm leading-5 text-white/65">
+                  Visualize impactos no saldo antes da próxima compra.
+                </p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Promise Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-24">
-          <div className="bg-[#111] border border-white/5 rounded-2xl p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#021E46]/30 blur-3xl rounded-full"></div>
-            <h3 className="text-xl font-bold text-[#f5f5f5] mb-8 relative z-10">O que prometemos</h3>
-            <ul className="space-y-4 relative z-10">
-              {['Direção e controle real', 'Menos ansiedade para pagar contas', 'Mais previsibilidade mensal e anual'].map((b, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-white/60">
-                  <CheckCircle2 size={16} className="text-[#6EA8E8]" />
-                  {b}
-                </li>
-              ))}
-            </ul>
+      <section className="bg-[#f7faf9] px-5 py-12 text-[#101417] sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-sm font-bold text-[#087f74]">Por que usar</p>
+            <h2 className="mb-4 text-3xl font-black leading-tight sm:text-4xl">
+              Planejamento simples para a vida real.
+            </h2>
+            <p className="text-base leading-7 text-[#4d5961]">
+              O app foi pensado para quem quer sair do controle reativo e entender o que vem pela frente sem planilhas difíceis ou gráficos confusos.
+            </p>
           </div>
-          <div className="bg-[#111] border border-white/5 rounded-2xl p-8 relative overflow-hidden">
-             <div className="absolute top-0 left-0 w-64 h-64 bg-[#021E46]/30 blur-3xl rounded-full"></div>
-             <h3 className="text-xl font-bold text-[#f5f5f5] mb-8 relative z-10">Transparência</h3>
-             <ul className="space-y-4 relative z-10">
-               {['Sem termos complicados ou técnicos', 'Sem gráficos complexos', '100% offline, você é dono dos dados'].map((b, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-white/60">
-                  <ChevronRight size={16} className="text-[#6EA8E8]" />
-                  <span className="font-semibold text-white/80">{b}</span>
-                </li>
-              ))}
-            </ul>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {highlights.map(({ icon: Icon, title, text }) => (
+              <article key={title} className="rounded-lg border border-[#dde7e5] bg-white p-5 shadow-sm">
+                <Icon className="mb-4 text-[#0f9f8f]" size={24} />
+                <h3 className="mb-2 text-lg font-extrabold">{title}</h3>
+                <p className="text-sm leading-6 text-[#5d6870]">{text}</p>
+              </article>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Beta Testers */}
-        <BetaTestersCard />
+      <section className="bg-[#07090d] px-5 py-12 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div>
+              <p className="mb-2 text-sm font-bold text-[#5eead4]">Dentro do app</p>
+              <h2 className="text-3xl font-black text-white">Fluxo, compromissos e visão.</h2>
+            </div>
+            <BarChart3 className="hidden text-[#fbbf24] sm:block" size={34} />
+          </div>
 
-        {/* Footer Links */}
-        <div className="flex flex-col items-center border-t border-white/5 pt-12">
+          <div className="flex gap-4 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {screenshots.map((src, index) => (
+              <div key={src} className="w-[72vw] max-w-[250px] flex-none rounded-lg border border-white/10 bg-white/[0.04] p-2">
+                <div className="relative aspect-[9/18.8] overflow-hidden rounded-lg bg-black">
+                  <Image
+                    src={getAssetPath(src)}
+                    alt={`Tela ${index + 1} do Farol Capital`}
+                    fill
+                    sizes="(max-width: 768px) 72vw, 250px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {['Sem cadastro obrigatório', 'Sem enviar dados financeiros', 'Feito para decisões mensais'].map((item) => (
+              <div key={item} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                <CheckCircle2 className="text-[#5eead4]" size={20} />
+                <span className="text-sm font-semibold text-white/75">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="sticky bottom-0 z-30 border-t border-white/10 bg-[#07090d]/92 px-5 py-3 backdrop-blur sm:px-8 lg:hidden">
+        <a
+          href={PLAY_STORE_URL}
+          className="flex min-h-13 items-center justify-center gap-3 rounded-lg bg-[#2dd4bf] px-5 py-3 text-base font-extrabold text-[#04100f]"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Download size={19} />
+          Baixar o app
+        </a>
+      </footer>
+
+      <footer className="border-t border-white/10 bg-[#07090d] px-5 py-8 text-center sm:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
+          <p className="text-sm font-semibold text-white/45">Kurupira Labs</p>
           <Link
             href="/politicasdeprivacidadesfarolcapital"
-            className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-sm font-semibold text-white/60 hover:text-white"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-white/65 transition hover:text-white"
           >
-            <ShieldCheck size={16} className="text-[#6EA8E8]" />
+            <ShieldCheck size={16} />
             Política de Privacidade
           </Link>
-          
-          <div className="text-center mt-12">
-             <p className="text-xs tracking-widest text-white/30 uppercase">Desenvolvido por</p>
-             <p className="text-sm font-bold text-white/50 mt-1">KURUPIRA LABS</p>
-          </div>
         </div>
+      </footer>
 
-      </div>
-    </div>
+      <style jsx global>{`
+        @keyframes farol-load {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+      `}</style>
+    </main>
   );
 }
