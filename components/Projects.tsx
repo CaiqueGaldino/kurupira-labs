@@ -1,6 +1,6 @@
 'use client';
 
-import { Wallet, DollarSign, BarChart3, PieChart, TrendingUp, Globe, Dumbbell, Users, Star, BrainCircuit, Calendar, BookOpen, Clock, ArrowRight } from 'lucide-react';
+import { Globe, Dumbbell, Users, Star, BrainCircuit, Calendar, BookOpen, Clock, ArrowRight, MessageCircleHeart, ImageIcon, Share2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -485,7 +485,164 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Coming soon */}
+        <SectionDivider />
+
+        {/* ── PROJECT 5: Bom Dia Mensagens ── */}
+        <div className="project-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+
+          {/* Left: info */}
+          <div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+              <Tag label="APP MOBILE" />
+              <Tag label="ANDROID" />
+              <Tag label="MENSAGENS" />
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
+              <div
+                style={{
+                  width: '48px', height: '48px', borderRadius: '14px', flexShrink: 0,
+                  background: 'linear-gradient(135deg, #f97316, #ea580c)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <MessageCircleHeart size={22} color="#fff" strokeWidth={1.5} />
+              </div>
+              <div>
+                <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f5f5f5', letterSpacing: '0.02em' }}>Bom Dia Mensagens</h2>
+                <p style={{ fontSize: '12px', color: 'rgba(245,245,245,0.3)', letterSpacing: '0.08em', marginTop: '2px' }}>MENSAGENS PARA O DIA A DIA</p>
+              </div>
+            </div>
+
+            <p style={{ fontSize: '15px', color: 'rgba(245,245,245,0.5)', lineHeight: 1.8, marginBottom: '14px' }}>
+              Encontre e compartilhe mensagens de bom dia, boa tarde, boa noite, feriados e datas comemorativas em poucos toques.
+            </p>
+            <p style={{ fontSize: '14px', color: 'rgba(245,245,245,0.3)', lineHeight: 1.8, marginBottom: '36px' }}>
+              Interface simples, textos legíveis e navegação por períodos do dia para facilitar o uso diário, especialmente para público adulto e idoso.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '260px' }}>
+              <Link
+                href="/bomdiamensagens"
+                style={{
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  padding: '12px 20px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '0.06em',
+                  color: 'rgba(245,245,245,0.6)',
+                  textDecoration: 'none',
+                  transition: 'border-color 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(249,115,22,0.4)'; e.currentTarget.style.color = '#f5f5f5'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(245,245,245,0.6)'; }}
+              >
+                MAIS DETALHES <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: highlights */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { icon: ImageIcon, title: 'Mensagens organizadas', text: 'Acesse imagens por Bom dia, Boa tarde, Boa noite e datas especiais.' },
+              { icon: Star, title: 'Favoritos e praticidade', text: 'Guarde as suas mensagens preferidas para enviar novamente quando quiser.' },
+              { icon: Share2, title: 'Compartilhe no WhatsApp', text: 'Baixe e compartilhe com rapidez, sem complicação.' },
+            ].map(({ icon: Icon, title, text }, i) => (
+              <div key={i} style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', borderRadius: '14px', padding: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                  <Icon size={16} color="rgba(249,115,22,0.8)" strokeWidth={1.7} />
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#f5f5f5' }}>{title}</span>
+                </div>
+                <p style={{ fontSize: '13px', color: 'rgba(245,245,245,0.45)', lineHeight: 1.7 }}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <SectionDivider />
+
+        <div className="project-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+          <div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+              <Tag label="APP MOBILE" />
+              <Tag label="ANDROID" />
+              <Tag label="PRODUTIVIDADE" />
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
+              <div
+                style={{
+                  width: '48px', height: '48px', borderRadius: '14px', flexShrink: 0,
+                  background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <Clock size={22} color="#fff" strokeWidth={1.5} />
+              </div>
+              <div>
+                <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#f5f5f5', letterSpacing: '0.02em' }}>Daily Tasks</h2>
+                <p style={{ fontSize: '12px', color: 'rgba(245,245,245,0.3)', letterSpacing: '0.08em', marginTop: '2px' }}>ORGANIZAÇÃO PESSOAL E PROFISSIONAL</p>
+              </div>
+            </div>
+
+            <p style={{ fontSize: '15px', color: 'rgba(245,245,245,0.5)', lineHeight: 1.8, marginBottom: '14px' }}>
+              Uma lista única para organizar tarefas pessoais e de trabalho no mesmo lugar, com foco total em praticidade e constância.
+            </p>
+            <p style={{ fontSize: '14px', color: 'rgba(245,245,245,0.3)', lineHeight: 1.8, marginBottom: '36px' }}>
+              Categorias, prioridades, recorrência e histórico ajudam você a manter o ritmo e executar o que realmente importa, todos os dias.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '260px' }}>
+              <Link
+                href="/dailytasks"
+                style={{
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  padding: '12px 20px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '0.06em',
+                  color: 'rgba(245,245,245,0.6)',
+                  textDecoration: 'none',
+                  transition: 'border-color 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(99,102,241,0.45)'; e.currentTarget.style.color = '#f5f5f5'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(245,245,245,0.6)'; }}
+              >
+                MAIS DETALHES <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { icon: Users, title: 'Tudo no mesmo app', text: 'Tarefas pessoais e de trabalho organizadas em uma lista única.' },
+              { icon: Calendar, title: 'Rotina com constância', text: 'Recorrência diária, semanal e mensal com histórico e calendário.' },
+              { icon: Star, title: 'Produtividade real', text: 'Prioridades, checklist e notificações para manter o foco no que importa.' },
+            ].map(({ icon: Icon, title, text }, i) => (
+              <div key={i} style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', borderRadius: '14px', padding: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                  <Icon size={16} color="rgba(99,102,241,0.9)" strokeWidth={1.7} />
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#f5f5f5' }}>{title}</span>
+                </div>
+                <p style={{ fontSize: '13px', color: 'rgba(245,245,245,0.45)', lineHeight: 1.7 }}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div
           style={{
             marginTop: '80px',
